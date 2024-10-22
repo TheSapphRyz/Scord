@@ -5,7 +5,7 @@ import time
 import threading
 import json
 
-s = "25.32.66.21"
+s = ""
 
 def socket_logic(message):
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
