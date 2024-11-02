@@ -5,8 +5,6 @@ import time
 import threading
 import json
 
-s = "192.168.1.47"
-
 def socket_logic(message):
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server_address = (str(s), 10000)
@@ -23,16 +21,14 @@ def socket_logic(message):
 
 host = socket.gethostbyname(socket.gethostname())
 print(host)
-host2 = os.name
 host3 = socket.gethostname()
 print("===================")
 print(host3)
-print("===================")
-print(host2)
 msgs = ft.Column(controls=[])
+s = "0.0.0.0"
 client_name = f"{host3}"
 client_password = f"{s}"
-
+release = "alfa 0.1"
 
 async def main(page: ft.Page):
     page.bgcolor = "#2C2F33"
@@ -98,7 +94,6 @@ async def main(page: ft.Page):
                     ]))
                     page.update()
                     tf_login_name.focus()
-                
 
     def login_acc(e):
         r = socket_logic(f"/check-=S=-{tf_login_name.value}-=S=-{tf_login_password.value}-=S=-{host3}")
@@ -112,7 +107,11 @@ async def main(page: ft.Page):
             global client_password
             client_name = tf_login_name.value
             client_password = tf_login_password.value
-
+        else:
+            ft_neverno = ft.Text("Неверно")
+            page.add(ft_neverno)
+            time.sleep(3)
+            page.remove(ft_neverno)
 
     def register_acc(e):
         r = socket_logic(f"/add_acc-=S=-{tf_login_name.value}-=S=-{tf_login_password.value}-=S=-{host}-=S=-{host3}")
@@ -126,7 +125,11 @@ async def main(page: ft.Page):
             global client_password
             client_name = tf_login_name.value
             client_password = tf_login_password.value
-
+        else:
+            ft_oshibka = ft.Text("Ошибка")
+            page.add(ft_oshibka)
+            time.sleep(3)
+            page.remove(ft_oshibka)
 
     tf_login_name = ft.TextField(label="your username")
     tf_login_password = ft.TextField(label="your password")
@@ -158,7 +161,7 @@ async def main(page: ft.Page):
     tf = ft.TextField(label="enter your message", on_submit=add_msg)
 
     def rail_logic(index):
-        card = ft.Card(color="#23272A", content=ft.Container(content=ft.Column([ft.ListTile(leading=ft.Icon(ft.icons.ACCOUNT_BOX, scale=1.6), title=ft.Text(client_name), subtitle=ft.Text("Scord user"))])))
+        card = ft.Card(color="#23272A", content=ft.Container(content=ft.Column([ft.ListTile(leading=ft.Icon(ft.icons.ACCOUNT_BOX, scale=1.6), title=ft.Text(client_name), subtitle=ft.Text("Scord user"), title_alignment="center")], alignment=ft.MainAxisAlignment.CENTER)))
         page.update()
         if index == 0:
             print(index)
@@ -194,12 +197,12 @@ async def main(page: ft.Page):
                     ft.Column([
                         card,
                         ft.Divider(color="#23272A"),
-                        ft.Row([ft.Text("Github проекта:"), ft.IconButton(icon=ft.icons.SOURCE, url="https://github.com/TheSapphRyz/Scord", selected_icon_color='#7289da')]),
-                        ft.Row([ft.Text("Community сервер на Github:"), ft.IconButton(icon=ft.icons.SOURCE, url="https://github.com/TheSapphRyz/Scord_server", selected_icon_color='#7289da')])
+                        ft.Row([ft.Text("Github проекта:", font_family="roboto"), ft.IconButton(icon=ft.icons.SOURCE, url="https://github.com/TheSapphRyz/Scord", selected_icon_color='#7289da')]),
+                        ft.Row([ft.Text("Community сервер на Github:", font_family="roboto"), ft.IconButton(icon=ft.icons.SOURCE, url="https://github.com/TheSapphRyz/Scord_server", selected_icon_color='#7289da')])
                         #ТУТА НАДА СДЕЛАТЬ ПРАВИЛА, ГИТХАББ ВЕРСИЮ SCORD И СМЕНУ ПАРОЛЯ
 
                              
-                    ], alignment="top_center", spacing=20)
+                    ], expand=True, alignment="top_center", spacing=20)
                 ], expand=True)
             )
             page.update()
